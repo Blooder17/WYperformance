@@ -1,4 +1,4 @@
-const NAME_REGEX = new RegExp(/^[A-za-z]+[A-za-z ]*$/u);
+const NAME_REGEX = new RegExp(/^[a-zA-Z\u00C0-\u017F\s]+$/);
 const EMAIL_REGEX = new RegExp(/^([a-z\d]+(?:[a-z\d._-])*)(@[a-z\d]+(?:[a-z\d.-])*)(\.[a-z]{2,})$/i);
 const form = document.getElementById('newsletter-form');
 
@@ -25,8 +25,6 @@ const swiper = new Swiper('.swiper', {
 });
 
 form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
     // Get value from the form inputs
     const nameValue = form['name'].value;
     const emailValue = form['email'].value;
@@ -58,9 +56,8 @@ form.addEventListener('submit', async (event) => {
     try {
         const response = await fetch(request);
         const result = await response.json();
-        console.log(result);
+        alert('Success');
     } catch (error) {
-        console.error('Error', error);
-        alert(error);
+        alert('Error signing to newsletter');
     }
 });
